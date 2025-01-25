@@ -1,7 +1,6 @@
 import { SearchPanel } from '../search-panel/search-panel';
 import { EmployeesList } from '../employees-list/employees-list';
 import { ErrorButton } from '../error-button/error-button';
-import { ErrorDescription } from '../error-description/error-description';
 
 import './app.css';
 
@@ -12,9 +11,7 @@ function App() {
         <SearchPanel />
       </div>
       <EmployeesList />
-
-      {/* <ErrorDescription /> */}
-      <ErrorButton />
+      <ErrorButton/>
     </div>
   );
 }
