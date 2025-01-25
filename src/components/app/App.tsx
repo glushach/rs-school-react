@@ -1,5 +1,5 @@
 import { SearchPanel } from '../search-panel/search-panel';
-import { EmployeesList } from '../employees-list/employees-list';
+import { PokemonsList } from '../pokemons-list/pokemons-list';
 import { ErrorButton } from '../throw-error/throw-error';
 import { ErrorBoundary } from '../error-boundary/error-boundary';
 
@@ -12,7 +12,7 @@ function App() {
         <div className="search-panel">
           <SearchPanel />
         </div>
-        <EmployeesList />
+        <PokemonsList />
         <ErrorButton />
       </ErrorBoundary>
     </div>

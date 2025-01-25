@@ -1,7 +1,7 @@
 import { Component, ReactNode } from 'react';
-import './employees-list-item.css';
+import './pokemons-list-item.css';
 
-export class EmployeesListItem extends Component {
+export class PokemonsListItem extends Component {
   render(): ReactNode {
     return (
       <li className="list-group-item d-flex justify-content-between">
