@@ -1,17 +1,20 @@
+import { Component, ReactNode } from 'react';
 import './app-filter.css';
 
-export function AppFilter() {
-  return (
-    <div className="btn-group">
-      <button type="button" className="btn btn-light">
-        Все сотрудники
-      </button>
-      <button type="button" className="btn btn-outline-light">
-        На повышение
-      </button>
-      <button type="button" className="btn btn-outline-light">
-        З/П больше 1000$
-      </button>
-    </div>
-  );
+export class AppFilter extends Component {
+  render(): ReactNode {
+    return (
+      <div className="btn-group">
+        <button type="button" className="btn btn-light">
+          Все сотрудники
+        </button>
+        <button type="button" className="btn btn-outline-light">
+          На повышение
+        </button>
+        <button type="button" className="btn btn-outline-light">
+          З/П больше 1000$
+        </button>
+      </div>
+    );
+  }
 }
