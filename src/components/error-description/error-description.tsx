@@ -1,12 +1,21 @@
+import { Component, ReactNode } from 'react';
 import './error-description.css';
 
-export function ErrorDescription() {
-  return (
-    <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum quasi
-      dolorem, quod quia amet tempora consectetur doloremque eligendi obcaecati.
-      Enim, nostrum perspiciatis vero exercitationem maiores culpa voluptate
-      fugit architecto distinctio.
-    </p>
-  );
+export class ErrorDescription extends Component<{ message: string }> {
+  handleReload = () => {
+    window.location.reload();
+  };
+
+  render(): ReactNode {
+    return (
+      <div className="error">
+        <p className="error-text">{this.props.message}</p>
+        {this.props.message === 'Error: I crashed!' && (
+          <button className="btn btn-outline-light" onClick={this.handleReload}>
+            Go home
+          </button>
+        )}
+      </div>
+    );
+  }
 }

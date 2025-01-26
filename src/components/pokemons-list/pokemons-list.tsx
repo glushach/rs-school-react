@@ -1,5 +1,5 @@
 import { Component, ReactNode } from 'react';
-import { fetchPokemon } from '../../services/PokemonService';
+import { fetchPokemon } from '../../services/pokemon-service';
 import { PokemonsListItem } from '../pokemons-list-item/pokemons-list-item';
 import { IPokemon } from '../interfaces/pokemon.interface';
 
@@ -12,11 +12,13 @@ interface PokemonsListProps {
 
 interface PokemonsListState {
   pokemons: IPokemon[];
+  error: string;
 }
 
 export class PokemonsList extends Component<PokemonsListProps> {
   state: PokemonsListState = {
     pokemons: [],
+    error: '',
   };
 
   async componentDidMount() {
@@ -27,14 +29,23 @@ export class PokemonsList extends Component<PokemonsListProps> {
       const pokemons = await fetchPokemon();
       this.setState({ pokemons });
     } catch (error) {
-      this.setState({ error, loading: false });
+      this.setState({
+        error: error,
+      });
     } finally {
       setLoading(false);
     }
   }
 
   render(): ReactNode {
-    const { pokemons } = this.state;
+    const { pokemons, error } = this.state;
+
+    if (error) {
+      const e = error as unknown;
+      throw new Error(
+        e instanceof Error ? e.message : 'Unknown error occurred'
+      );
+    }
 
     return (
       <div className="app-list">

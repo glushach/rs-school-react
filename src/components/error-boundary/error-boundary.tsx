@@ -1,4 +1,5 @@
 import React, { ErrorInfo } from 'react';
+import { ErrorDescription } from '../error-description/error-description';
 
 export class ErrorBoundary extends React.Component<React.PropsWithChildren> {
   state = {
@@ -12,12 +13,10 @@ export class ErrorBoundary extends React.Component<React.PropsWithChildren> {
   componentDidCatch(error: Error, info: ErrorInfo) {
     this.logErrorToServices(error.toString(), info.componentStack);
   }
-
   logErrorToServices = console.log;
-
   render() {
     if (this.state.errorMessage) {
-      return <p>{this.state.errorMessage}</p>;
+      return <ErrorDescription message={this.state.errorMessage} />;
     }
     return this.props.children;
   }
