@@ -2,6 +2,8 @@ import { Component, ReactNode } from 'react';
 import { fetchPokemon } from '../../services/pokemon-service';
 import { PokemonsListItem } from '../pokemons-list-item/pokemons-list-item';
 import { IPokemon } from '../interfaces/pokemon.interface';
+import { SearchPanel } from '../search-panel/search-panel';
+import { NotFound } from '../not-found/not-found';
 
 import './pokemons-list.css';
 
@@ -21,7 +23,7 @@ export class PokemonsList extends Component<PokemonsListProps> {
     error: '',
   };
 
-  async componentDidMount() {
+  async loadData() {
     const { setLoading } = this.props;
     setLoading(true);
 
@@ -37,6 +39,14 @@ export class PokemonsList extends Component<PokemonsListProps> {
     }
   }
 
+  async componentDidMount() {
+    this.loadData();
+  }
+
+  newRender = () => {
+    this.loadData();
+  };
+
   render(): ReactNode {
     const { pokemons, error } = this.state;
 
@@ -48,15 +58,24 @@ export class PokemonsList extends Component<PokemonsListProps> {
     }
 
     return (
-      <div className="app-list">
-        <ul className="list-group">
-          {pokemons.map((pokemon) => {
-            const url: string = pokemon.url;
-            const id: string = url.split('/').filter(Boolean).pop() || '';
-            return <PokemonsListItem pokemon={pokemon} key={id} />;
-          })}
-        </ul>
-      </div>
+      <>
+        <div className="search-panel">
+          <SearchPanel />
+        </div>
+        <div className="app-list">
+          <ul className="list-group">
+            {pokemons.length === 0 ? (
+              <NotFound />
+            ) : (
+              pokemons.map((pokemon) => {
+                const url: string = pokemon.url;
+                const id: string = url.split('/').filter(Boolean).pop() || '';
+                return <PokemonsListItem pokemon={pokemon} key={id} />;
+              })
+            )}
+          </ul>
+        </div>
+      </>
     );
   }
 }

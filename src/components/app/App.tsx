@@ -1,4 +1,3 @@
-import { SearchPanel } from '../search-panel/search-panel';
 import { PokemonsList } from '../pokemons-list/pokemons-list';
 import { ErrorButton } from '../error-button/error-button';
 import { ErrorBoundary } from '../error-boundary/error-boundary';
@@ -24,9 +23,6 @@ class App extends Component {
         {loading && <Spinner />}
         <ErrorBoundary>
           <div className="app">
-            <div className="search-panel">
-              <SearchPanel />
-            </div>
             <PokemonsList loading={loading} setLoading={this.setLoading} />
             <ErrorButton />
           </div>
