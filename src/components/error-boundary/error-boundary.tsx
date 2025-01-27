@@ -1,7 +1,7 @@
-import React, { ErrorInfo } from 'react';
+import { ErrorInfo, Component, PropsWithChildren } from 'react';
 import { ErrorDescription } from '../error-description/error-description';
 
-export class ErrorBoundary extends React.Component<React.PropsWithChildren> {
+export class ErrorBoundary extends Component<PropsWithChildren> {
   state = {
     errorMessage: '',
   };
@@ -14,9 +14,19 @@ export class ErrorBoundary extends React.Component<React.PropsWithChildren> {
     this.logErrorToServices(error.toString(), info.componentStack);
   }
   logErrorToServices = console.log;
+
+  handleReset = () => {
+    this.setState({ errorMessage: '' });
+  };
+
   render() {
     if (this.state.errorMessage) {
-      return <ErrorDescription message={this.state.errorMessage} />;
+      return (
+        <ErrorDescription
+          message={this.state.errorMessage}
+          onReset={this.handleReset}
+        />
+      );
     }
     return this.props.children;
   }
