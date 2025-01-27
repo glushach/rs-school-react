@@ -60,7 +60,7 @@ export class PokemonsList extends Component<PokemonsListProps> {
     return (
       <>
         <div className="search-panel">
-          <SearchPanel />
+          <SearchPanel onSearch={this.loadData.bind(this)} />
         </div>
         <div className="app-list">
           <ul className="list-group">

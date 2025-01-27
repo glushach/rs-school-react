@@ -1,9 +1,15 @@
 import { Component } from 'react';
-import { fetchPokemon } from '../../services/pokemon-service';
-
 import './search-panel.css';
 
-class SearchPanel extends Component {
+interface SearchPanelProps {
+  onSearch: (searchStr: string) => void;
+}
+
+interface SearchPanelState {
+  searchStr: string;
+}
+
+class SearchPanel extends Component<SearchPanelProps, SearchPanelState> {
   state = {
     searchStr: localStorage.getItem('searchStr') || '',
   };
@@ -15,8 +21,7 @@ class SearchPanel extends Component {
   handleSearchClick = async () => {
     const { searchStr } = this.state;
     localStorage.setItem('searchStr', searchStr);
-    await fetchPokemon();
-    window.location.reload();
+    this.props.onSearch(searchStr);
   };
 
   handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
