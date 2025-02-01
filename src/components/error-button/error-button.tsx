@@ -1,33 +1,27 @@
-import { Component, ReactNode } from 'react';
+import { useState } from 'react';
 
-export class ErrorButton extends Component {
-  state = {
-    counter: 0,
+export const ErrorButton = () => {
+  const [counter, setCounter] = useState(0);
+
+  const handleError = () => {
+    setCounter((prev) => prev + 1);
   };
 
-  handleError = () => {
-    this.setState({
-      counter: this.state.counter + 1,
-    });
-  };
-
-  render(): ReactNode {
-    if (this.state.counter === 1) {
-      // Simulate an error!
-      throw new Error('I crashed!');
-    }
-
-    return (
-      <div className="search-panel">
-        <button
-          type="submit"
-          className="btn btn-outline-light"
-          style={{ marginLeft: 'auto', display: 'block' }}
-          onClick={this.handleError}
-        >
-          Simulate Error
-        </button>
-      </div>
-    );
+  if (counter === 1) {
+    // Simulate an error!
+    throw new Error('I crashed!');
   }
-}
+
+  return (
+    <div className="search-panel">
+      <button
+        type="submit"
+        className="btn btn-outline-light"
+        style={{ marginLeft: 'auto', display: 'block' }}
+        onClick={handleError}
+      >
+        Simulate Error
+      </button>
+    </div>
+  );
+};
