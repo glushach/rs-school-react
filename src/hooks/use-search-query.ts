@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 
 const useSearchQuery = () => {
-  const [searchStr, setSearchStr] = useState(
-    localStorage.getItem('searchStr') || ''
-  );
+  const [searchStr, setSearchStr] = useState(() => {
+    return (localStorage.getItem('searchStr') || '').trim();
+  });
 
   useEffect(() => {
     localStorage.setItem('searchStr', searchStr);

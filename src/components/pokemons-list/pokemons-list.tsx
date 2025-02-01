@@ -17,7 +17,6 @@ export const PokemonsList: React.FC<PokemonsListProps> = ({ setLoading }) => {
 
   const loadData = useCallback(async () => {
     setLoading(true);
-
     try {
       const pokemons = await fetchPokemon();
       setPokemons(pokemons);
