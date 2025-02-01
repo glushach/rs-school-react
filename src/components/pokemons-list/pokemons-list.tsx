@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { fetchPokemon } from '../../services/pokemon-service';
 import { PokemonsListItem } from '../pokemons-list-item/pokemons-list-item';
 import { IPokemon } from '../interfaces/pokemon.interface';
@@ -15,7 +15,7 @@ export const PokemonsList: React.FC<PokemonsListProps> = ({ setLoading }) => {
   const [pokemons, setPokemons] = useState<IPokemon[]>([]);
   const [error, setError] = useState<string>('');
 
-  const loadData = async () => {
+  const loadData = useCallback(async () => {
     setLoading(true);
 
     try {
@@ -28,11 +28,11 @@ export const PokemonsList: React.FC<PokemonsListProps> = ({ setLoading }) => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [setLoading]);
 
   useEffect(() => {
     loadData();
-  });
+  }, [loadData]);
 
   if (error) {
     throw new Error(error);

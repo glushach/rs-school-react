@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import useSearchQuery from '../../hooks/use-search-query';
 
 import './search-panel.css';
@@ -8,13 +9,12 @@ interface SearchPanelProps {
 
 const SearchPanel: React.FC<SearchPanelProps> = ({ onSearch }) => {
   const [searchStr, setSearchStr] = useSearchQuery();
-
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchStr(event.target.value);
-  };
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const handleSearchClick = () => {
-    onSearch(searchStr);
+    if (inputRef.current) {
+      setSearchStr(inputRef.current.value);
+    }
   };
 
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -23,15 +23,21 @@ const SearchPanel: React.FC<SearchPanelProps> = ({ onSearch }) => {
     }
   };
 
+  useEffect(() => {
+    if (searchStr) {
+      onSearch(searchStr);
+    }
+  }, [searchStr, onSearch]);
+
   return (
     <div className="wrap">
       <input
         type="text"
         className="form-control search-input"
         placeholder="Search pokemon"
-        onChange={handleInputChange}
         onKeyDown={handleKeyPress}
-        value={searchStr}
+        ref={inputRef}
+        defaultValue={searchStr}
       />
       <button
         type="submit"
